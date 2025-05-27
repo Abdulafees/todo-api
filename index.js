@@ -4,7 +4,7 @@ const port = process.env.PORT || 3000;
 
 app.use(express.json());
 
-// Default todo list
+// ✅ Default todo list
 const staticTodos = [
     { id: 1, task: "Wake up early" },
     { id: 2, task: "Brush teeth" },
@@ -18,14 +18,15 @@ const staticTodos = [
     { id: 10, task: "Plan for tomorrow" }
 ];
 
+// ✅ Initialize current todos
 let todos = [...staticTodos];
 
-// Route to get all todos
+// ✅ Get all todos
 app.get('/todos', (req, res) => {
     res.json(todos);
 });
 
-// Route to add a new todo
+// ✅ Add a new todo
 app.post('/todos', (req, res) => {
     const { task } = req.body;
     if (!task) {
@@ -36,20 +37,20 @@ app.post('/todos', (req, res) => {
     res.status(201).json(newTodo);
 });
 
-// Route to delete a todo by ID
+// ✅ Delete a todo by ID
 app.delete('/todos/:id', (req, res) => {
     const id = parseInt(req.params.id);
     todos = todos.filter(todo => todo.id !== id);
     res.json({ message: 'Todo deleted' });
 });
 
-// ✅ NEW: Route to reset todos
+// ✅ Reset todos to initial list
 app.get('/reset', (req, res) => {
     todos = [...staticTodos];
-    res.json({ message: 'Todo list has been reset' });
+    res.json({ message: 'Todo list has been reset', todos });
 });
 
-// Start the server
+// ✅ Start server
 app.listen(port, () => {
     console.log(`Todo API running at http://localhost:${port}`);
 });
