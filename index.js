@@ -1,13 +1,11 @@
-﻿// index.js
-
-const express = require('express');
+﻿const express = require('express');
 const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(express.json());
 
-// ✅ Preloaded Todos
-let todos = [
+// Default static todo list
+const staticTodos = [
     { id: 1, task: "Wake up early" },
     { id: 2, task: "Brush teeth" },
     { id: 3, task: "Eat breakfast" },
@@ -20,12 +18,14 @@ let todos = [
     { id: 10, task: "Plan for tomorrow" }
 ];
 
-// ✅ Get all todos
+let todos = [...staticTodos];
+
+// GET all todos
 app.get('/todos', (req, res) => {
     res.json(todos);
 });
 
-// ✅ Add a new todo
+// POST a new todo
 app.post('/todos', (req, res) => {
     const { task } = req.body;
     if (!task) {
@@ -36,14 +36,19 @@ app.post('/todos', (req, res) => {
     res.status(201).json(newTodo);
 });
 
-// ✅ Delete a todo by ID
+// DELETE a todo
 app.delete('/todos/:id', (req, res) => {
     const id = parseInt(req.params.id);
     todos = todos.filter(todo => todo.id !== id);
     res.json({ message: 'Todo deleted' });
 });
 
-// ✅ Start the server
+// RESET route
+app.get('/reset', (req, res) => {
+    todos = [...staticTodos];
+    res.json({ message: 'Todo list has been reset' });
+});
+
 app.listen(port, () => {
     console.log(`Todo API running at http://localhost:${port}`);
 });
