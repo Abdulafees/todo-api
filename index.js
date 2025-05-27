@@ -19,8 +19,18 @@ const staticTodos = [
 ];
 
 // ✅ Initialize current todos
-let todos = [...staticTodos];
-
+let todos = [
+    { id: 1, task: "Wake up early" },
+    { id: 2, task: "Brush teeth" },
+    { id: 3, task: "Eat breakfast" },
+    { id: 4, task: "Read emails" },
+    { id: 5, task: "Work on Node.js project" },
+    { id: 6, task: "Attend Zoom meeting" },
+    { id: 7, task: "Lunch break" },
+    { id: 8, task: "Continue project tasks" },
+    { id: 9, task: "Review team progress" },
+    { id: 10, task: "Plan for tomorrow" }
+];
 // ✅ Get all todos
 app.get('/todos', (req, res) => {
     res.json(todos);
