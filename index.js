@@ -4,7 +4,7 @@ const port = process.env.PORT || 3000;
 
 app.use(express.json());
 
-// Default todo list
+// Static default todos
 const staticTodos = [
     { id: 1, task: "Wake up early" },
     { id: 2, task: "Brush teeth" },
@@ -18,6 +18,7 @@ const staticTodos = [
     { id: 10, task: "Plan for tomorrow" }
 ];
 
+// ✅ Initialize with default todos every time server starts
 let todos = [...staticTodos];
 
 // Get all todos
@@ -25,7 +26,7 @@ app.get('/todos', (req, res) => {
     res.json(todos);
 });
 
-// Add new todo
+// Add a new todo
 app.post('/todos', (req, res) => {
     const { task } = req.body;
     if (!task) {
