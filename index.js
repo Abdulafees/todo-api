@@ -18,7 +18,6 @@ const staticTodos = [
     { id: 10, task: "Plan for tomorrow" }
 ];
 
-// ✅ Initialize with default todos every time server starts
 let todos = [...staticTodos];
 
 // Get all todos
@@ -26,7 +25,7 @@ app.get('/todos', (req, res) => {
     res.json(todos);
 });
 
-// Add a new todo
+// Add new todo
 app.post('/todos', (req, res) => {
     const { task } = req.body;
     if (!task) {
@@ -37,17 +36,17 @@ app.post('/todos', (req, res) => {
     res.status(201).json(newTodo);
 });
 
-// Delete a todo by ID
+// Delete by ID
 app.delete('/todos/:id', (req, res) => {
     const id = parseInt(req.params.id);
     todos = todos.filter(todo => todo.id !== id);
-    res.json({ message: 'Todo deleted' });
+    res.json({ message: "Todo deleted" });
 });
 
-// Reset todos to default
+// ✅ Reset todos
 app.get('/reset', (req, res) => {
     todos = [...staticTodos];
-    res.json({ message: 'Todo list has been reset' });
+    res.json({ message: "Todo list has been reset" });
 });
 
 // Start server
